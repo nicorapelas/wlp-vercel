@@ -89,7 +89,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="version-number">v1.0.0</div>
+      <div className="version-number">v1.0.1</div>
       <NetworkChecker />
       {renderContent()}
     </>
