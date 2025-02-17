@@ -8,17 +8,13 @@ import {
 
 import LoaderFullScreen from './components/common/loaders/fullScreenLoader/LoaderFullScreen'
 import NotFound from './components/common/notFound/NotFound'
-import SignupHR from './components/screens/authScreens/signup/Signup'
 import Login from './components/screens/authScreens/login/Login'
 import Dashboard from './components/screens/dashboard/Dashboard'
 import InitDataFetch from './components/InitDataFetch'
 import CheckoutPage from './components/screens/checkout/Checkout'
 import PaymentSuccess from './components/screens/checkout/PaymentSuccess'
 import PaymentCancelled from './components/screens/checkout/PaymentCancelled'
-import CardsAdmin from './components/screens/cardsAdmin/CardsAdmin'
 import MyCards from './components/screens/myCards/MyCards'
-import PaymentHistory from './components/screens/paymentHistory/PaymentHistory'
-import AdminPanel from './components/screens/adminPanel/AdminPanel'
 import Home from './components/screens/home/Home'
 import NetworkError from './components/common/netoworkError/NetworkError'
 import CardsJustPaid from './components/screens/cardsJustPaid/CardsJustPaid'
@@ -101,30 +97,11 @@ const AppRouter = () => {
             />
             <Route path="/network-error" element={<NetworkError />} />
             {/* Admin Routes */}
-            <Route
-              path="/cards-admin"
-              element={
-                token ? <CardsAdmin /> : <Navigate to="/login" replace />
-              }
-            />
-            <Route
-              path="/payment-history"
-              element={
-                token ? <PaymentHistory /> : <Navigate to="/login" replace />
-              }
-            />
-            <Route
-              path="/admin-panel"
-              element={
-                token ? <AdminPanel /> : <Navigate to="/login" replace />
-              }
-            />
             {/* Auth Routes */}
             <Route
               path="/login"
               element={token ? <Navigate to="/dashboard" replace /> : <Login />}
             />
-            <Route path="/signup" element={<SignupHR />} />
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="*" element={<NotFound />} />
