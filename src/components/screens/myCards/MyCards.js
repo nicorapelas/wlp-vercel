@@ -76,7 +76,7 @@ const MyCards = () => {
           Back
         </button>
         <div className="info-section">
-          <h4>My Cards</h4>
+          <h4>My Cards.</h4>
           <div className="table-responsive">
             <table className="table">
               <thead>

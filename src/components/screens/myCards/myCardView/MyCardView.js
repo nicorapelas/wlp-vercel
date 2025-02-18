@@ -62,7 +62,7 @@ const MyCardView = () => {
         </button>
       </div>
       <div className="cards-paid-header">
-        <h2>Card Details</h2>
+        <h2>Card Details.</h2>
       </div>
       <div className="card-section">
         <div className="card-main-info">
