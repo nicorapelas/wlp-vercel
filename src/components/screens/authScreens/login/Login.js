@@ -15,7 +15,7 @@ const Login = () => {
   })
 
   const {
-    state: { loading, apiMessage, errorMessage },
+    state: { loading, apiMessage, errorMessage, networkError },
     login,
     clearErrorMessage,
     clearApiMessage,
