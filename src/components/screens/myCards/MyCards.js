@@ -22,6 +22,10 @@ const MyCards = () => {
   }, [])
 
   useEffect(() => {
+    console.log('userCards', userCards)
+  }, [userCards])
+
+  useEffect(() => {
     if (networkError) {
       navigate('/network-error')
     }
@@ -30,10 +34,6 @@ const MyCards = () => {
   if (loading) {
     return <Loader />
   }
-
-  useEffect(() => {
-    console.log(`userCards:`, userCards)
-  }, [userCards])
 
   const handleBackButtonPress = () => {
     navigate('/dashboard')
@@ -72,7 +72,7 @@ const MyCards = () => {
     )
   }
 
-  return <div>hello world..!</div>
+  return <div>hello world, please!</div>
 }
 
 export default MyCards
