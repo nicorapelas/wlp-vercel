@@ -31,6 +31,10 @@ const MyCards = () => {
     return <Loader />
   }
 
+  useEffect(() => {
+    console.log(`userCards:`, userCards)
+  }, [userCards])
+
   const handleBackButtonPress = () => {
     navigate('/dashboard')
   }
@@ -68,62 +72,7 @@ const MyCards = () => {
     )
   }
 
-  return (
-    <>
-      <NetworkChecker />
-      <div className="card-info">
-        <button className="nav-button" onClick={handleBackButtonPress}>
-          Back
-        </button>
-        <div className="info-section">
-          <h4>My Cards.</h4>
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Purchase Date</th>
-                  <th>Password</th>
-                  <th>Card No</th>
-                  <th>Product</th>
-                </tr>
-              </thead>
-              <div className="my-cards-header-spacer"></div>
-              <tbody>
-                {userCards
-                  .sort((a, b) => {
-                    const dateA = new Date(a.purchasedAt || a.createdAt)
-                    const dateB = new Date(b.purchasedAt || b.createdAt)
-                    return dateB - dateA
-                  })
-                  .map((card) => (
-                    <tr key={card._id}>
-                      <div className="view-button-container">
-                        <button
-                          className="view-button"
-                          onClick={() => handleRowClick(card)}
-                        >
-                          View
-                        </button>
-                      </div>
-                      <td className="text-sm">
-                        {format(
-                          new Date(card.purchasedAt || card.createdAt),
-                          'MMM dd, yyyy HH:mm',
-                        )}
-                      </td>
-                      <td className="font-mono text-sm">{card.password}</td>
-                      <td className="font-mono text-sm">{card.cardNo}</td>
-                      <td>{card.product}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </>
-  )
+  return <div>hello world..!</div>
 }
 
 export default MyCards
