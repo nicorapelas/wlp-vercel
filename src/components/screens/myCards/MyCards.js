@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { format } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
-import { FaInfoCircle } from 'react-icons/fa'
-
 import NetworkChecker from '../../common/NetworkChecker'
 import Loader from '../../common/loaders/fullScreenLoader/LoaderFullScreen'
 import { Context as CardContext } from '../../../context/CardsContext'
-import '../dashboard/dashboard.css'
+import './myCards.css'
 
 const MyCards = () => {
   const navigate = useNavigate()
@@ -42,13 +40,16 @@ const MyCards = () => {
 
   if (!userCards || !Array.isArray(userCards) || userCards.length === 0) {
     return (
-      <div className="card-info">
-        <button className="nav-button" onClick={handleBackButtonPress}>
+      <div className="my-cards">
+        <button
+          className="my-cards__back-button"
+          onClick={handleBackButtonPress}
+        >
           Back
         </button>
-        <div className="info-section">
-          <h4>My Cards</h4>
-          <p style={{ color: '#ffff' }}>No cards available.</p>
+        <div className="my-cards__content">
+          <h4 className="my-cards__title">My Cards</h4>
+          <p className="my-cards__empty-message">No cards available.</p>
         </div>
       </div>
     )
@@ -57,24 +58,26 @@ const MyCards = () => {
   return (
     <>
       <NetworkChecker />
-      <div className="card-info">
-        <button className="nav-button" onClick={handleBackButtonPress}>
+      <div className="my-cards">
+        <button
+          className="my-cards__back-button"
+          onClick={handleBackButtonPress}
+        >
           Back
         </button>
-        <div className="info-section">
-          <h4>My Cards</h4>
-          <div className="table-responsive">
-            <table className="table">
+        <div className="my-cards__content">
+          <h4 className="my-cards__title">My Cards</h4>
+          <div className="my-cards__table-wrapper">
+            <table className="my-cards__table">
               <thead>
                 <tr>
-                  <th></th>
+                  <th>Actions</th>
                   <th>Purchase Date</th>
                   <th>Password</th>
                   <th>Card No</th>
                   <th>Product</th>
                 </tr>
               </thead>
-              <div className="my-cards-header-spacer"></div>
               <tbody>
                 {userCards
                   .sort((a, b) => {
@@ -84,23 +87,27 @@ const MyCards = () => {
                   })
                   .map((card) => (
                     <tr key={card._id}>
-                      <div className="view-button-container">
+                      <td>
                         <button
-                          className="view-button"
+                          className="my-cards__view-button"
                           onClick={() => handleRowClick(card)}
                         >
                           View
                         </button>
-                      </div>
-                      <td className="text-sm">
+                      </td>
+                      <td className="my-cards__cell my-cards__cell--date">
                         {format(
                           new Date(card.purchasedAt || card.createdAt),
                           'MMM dd, yyyy HH:mm',
                         )}
                       </td>
-                      <td className="font-mono text-sm">{card.password}</td>
-                      <td className="font-mono text-sm">{card.cardNo}</td>
-                      <td>{card.product}</td>
+                      <td className="my-cards__cell my-cards__cell--mono">
+                        {card.password}
+                      </td>
+                      <td className="my-cards__cell my-cards__cell--mono">
+                        {card.cardNo}
+                      </td>
+                      <td className="my-cards__cell">{card.product}</td>
                     </tr>
                   ))}
               </tbody>
