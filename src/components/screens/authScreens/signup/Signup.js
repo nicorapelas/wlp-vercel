@@ -9,6 +9,7 @@ import './signup.css'
 
 const Signup = () => {
   const [formData, setFormData] = useState({
+    phone: '',
     email: '',
     password: '',
     password2: '',
@@ -45,13 +46,17 @@ const Signup = () => {
     return (
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Username</label>
+          <label>Phone</label>
           <input
-            name="email"
-            value={formData.email}
+            name="phone"
+            value={formData.phone}
             onChange={handleChange}
             onFocus={handleOnFocus}
           />
+        </div>
+        <div className="form-group">
+          <label>Username</label>
+          <input name="email" value={formData.email} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>Password</label>
@@ -85,7 +90,7 @@ const Signup = () => {
       <div className="signup-container">
         <img src={logo} alt="logo" className="auth-logo" />
         {!errorMessage ? (
-          <div className="auth-title">Sign up installer</div>
+          <div className="auth-title">Sign up, become a partner</div>
         ) : (
           <AuthError error={errorMessage} />
         )}

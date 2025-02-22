@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Context as AuthContext } from '../../../context/AuthContext'
@@ -7,17 +7,32 @@ import NetworkChecker from '../../common/NetworkChecker'
 import WP001 from '../../common/products/WP001'
 import WP002 from '../../common/products/WP002'
 import WP003 from '../../common/products/WP003'
+import UpdatePassword from './updatePassword/UpdatePassword'
 import CardToBuyConfirm from './cardToBuyConfirm/CardToBuyConfirm'
 import './dashboard.css'
 
 const Dashboard = () => {
-  const { signout, setIsAuthChecked } = useContext(AuthContext)
+  const [passwordUpdated, setPasswordUpdated] = useState(true)
+
+  const {
+    state: { user },
+    signout,
+    setIsAuthChecked,
+  } = useContext(AuthContext)
 
   const {
     state: { cardToBuy },
   } = useContext(CardsContext)
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    console.log('user', user)
+    if (user) {
+      const { passwordUpdated } = user
+      setPasswordUpdated(passwordUpdated)
+    }
+  }, [user])
 
   const handleMyCardsPress = () => {
     navigate('/my-cards')
@@ -29,6 +44,9 @@ const Dashboard = () => {
   }
 
   const renderContent = () => {
+    if (!passwordUpdated) {
+      return <UpdatePassword />
+    }
     if (cardToBuy) {
       return <CardToBuyConfirm />
     }

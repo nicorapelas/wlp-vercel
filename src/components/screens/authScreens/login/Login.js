@@ -71,7 +71,7 @@ const Login = () => {
     if (errorMessage) {
       return <AuthError error={errorMessage} />
     }
-    return <div className="auth-title">Hello installer</div>
+    return <div className="auth-title">Hello partner</div>
   }
 
   const renderContent = () => {

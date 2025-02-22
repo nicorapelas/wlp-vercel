@@ -92,11 +92,20 @@ const tryLocalSignin = (dispatch) => async () => {
 
 const register =
   (dispatch) =>
-  async ({ fullName, email, password, password2, introAffiliateCode, HR }) => {
+  async ({
+    fullName,
+    phone,
+    email,
+    password,
+    password2,
+    introAffiliateCode,
+    HR,
+  }) => {
     dispatch({ type: 'LOADING' })
     try {
       const response = await ngrokApi.post('/auth/user/register', {
         fullName,
+        phone,
         email,
         password,
         password2,
@@ -321,6 +330,36 @@ const fetchUsersInfoContent = (dispatch) => async () => {
   }
 }
 
+const resetPassword = (dispatch) => async (data) => {
+  dispatch({ type: 'LOADING' })
+  try {
+    const response = await ngrokApi.post('/auth/user/reset-password', data)
+    if (response.data.error) {
+      dispatch({ type: 'ADD_ERROR', payload: response.data.error })
+    }
+    if (response.data.success) {
+      dispatch({ type: 'ADD_API_MESSAGE', payload: response.data.message })
+    }
+  } catch (error) {
+    dispatch({ type: 'NETWORK_ERROR', payload: true })
+    return
+  }
+}
+
+const updatePassword = (dispatch) => async (data) => {
+  dispatch({ type: 'LOADING' })
+  try {
+    const response = await ngrokApi.post('/auth/user/update-password', data)
+    if (response.data.error) {
+      dispatch({ type: 'ADD_ERROR', payload: response.data.error })
+    } else {
+      dispatch({ type: 'FETCH_USER', payload: response.data })
+    }
+  } catch (error) {
+    dispatch({ type: 'NETWORK_ERROR', payload: true })
+  }
+}
+
 // HR only Actions
 const updateUsersInfo = (dispatch) => async (data) => {
   dispatch({ type: 'LOADING' })
@@ -371,6 +410,8 @@ export const { Provider, Context } = createDataContext(
     closeFormModalReset,
     // HR only
     updateUsersInfo,
+    resetPassword,
+    updatePassword,
   },
   {
     token: null,
